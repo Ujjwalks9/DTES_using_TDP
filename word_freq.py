@@ -77,7 +77,7 @@ def merge_frequencies(results):
 
 
 #routing 
-@app.route('/api/submit', methods=['POST'])
+@app.route('/api/word_freq', methods=['POST'])
 def handle_submit():
     content = request.get_json()
     text = content.get('text', '')
