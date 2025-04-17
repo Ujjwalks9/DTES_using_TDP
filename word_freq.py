@@ -108,5 +108,4 @@ def handle_submit():
 
 
 if __name__ == '__main__':
-    print("[Master] Starting web server...")
     app.run(port=5000)
