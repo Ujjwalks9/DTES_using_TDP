@@ -13,15 +13,15 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import MatrixInputByText from "./components/matrix/Matrix-Form"
+import MatrixInputByText from "./components/matrix/matrix_multiply_form"
 import { Route, Routes } from "react-router-dom"
-import HugeListSorter from "./components/sort/sort-form"
+import HugeListSorter from "./components/sort/sub"
 import FibonacciGenerator from "./components/fibbonachi/fibo-form"
 import LandingPage from "./LandingPage"
-import FactorialCalculator from "./components/factorial/factorial-form"
-import WordCounter from "./components/wordCount/word-count-form"
-import PrimeNumberCalculator from "./components/prime/prime-form"
-import GrayscaleImageProcessor from "./components/image/GrayscaleImageProcessor"
+import FactorialCalculator from "./components/factorial/factoiral_find"
+import WordCounter from "./components/wordCount/word_counting_form"
+import PrimeNumberCalculator from "./components/prime/prime_checking"
+import GrayscaleImageProcessor from "./components/image/image_to_grayscale"
 
 export default function SideBar() {
   return (
