@@ -11,31 +11,38 @@ const FibonacciGenerator = () => {
   const [fibAtPosition, setFibAtPosition] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const generateFibonacci = (n) => {
-    let fibArr = [0, 1];
-    for (let i = 2; i <= n; i++) {
-      fibArr.push(fibArr[i - 1] + fibArr[i - 2]);
-    }
-    return fibArr;
-  };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (!position || isNaN(position) || position < 1) {
       toast.error("Please enter a valid position greater than 0.");
       return;
     }
-
+  
     setLoading(true);
     toast.info("Generating Fibonacci series...");
-
-    setTimeout(() => {
-      const fibSeriesData = generateFibonacci(Number(position));
-      setFibSeries(fibSeriesData);
-      setFibAtPosition(fibSeriesData[position - 1]);
-      toast.success("Fibonacci series generated!");
-      setLoading(false);
-    }, 500);
+  
+    try {
+      const response = await fetch("http://localhost:5000/generate-fibonacci", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ position: parseInt(position) }),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        setFibSeries(data.series);
+        setFibAtPosition(data.series[position - 1]);
+        toast.success("Fibonacci series generated!");
+      } else {
+        toast.error(data.error || "Error generating Fibonacci.");
+      }
+    } catch {
+      toast.error("Connection to backend failed.");
+    }
+  
+    setLoading(false);
   };
+  
 
   return (
     <div className="w-full px-4">

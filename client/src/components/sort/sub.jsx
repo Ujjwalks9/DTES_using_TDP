@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Label } from "../ui/label";
 
 const HugeListSorter = () => {
   const [file, setFile] = useState(null);
@@ -53,38 +58,53 @@ const HugeListSorter = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Huge List Sorter</h1>
+    <div className="w-full px-4">
+      <h1 className="text-3xl font-bold mb-8 text-center">Huge List Sorter</h1>
 
-      <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
-        <input
-          type="file"
-          accept=".txt,.csv"
-          onChange={(e) => setFile(e.target.files[0])}
-          className="border rounded px-4 py-2 w-full md:w-auto"
-        />
-        <button
-          onClick={handleSort}
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
-        >
+      <div className="flex flex-col md:flex-row items-end gap-4 mb-8 max-w-3xl mx-auto">
+        <div className="w-full md:w-80">
+          <Label htmlFor="file" className="mb-2 block">
+            Choose a file to sort the list
+          </Label>
+          <Input
+            id="file"
+            type="file"
+            accept=".txt,.csv"
+            onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          />
+        </div>
+        <Button onClick={handleSort} className="w-full md:w-auto">
           Upload & Sort
-        </button>
+        </Button>
       </div>
 
       {sorted.length > 0 && (
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-mono">
-          <div>
-            <h2 className="text-xl font-semibold mb-2 text-green-700">Sorted (Ascending)</h2>
-            <div className="p-3 border rounded h-60 overflow-y-auto bg-gray-50">
-              {sorted.join(", ")}
-            </div>
-          </div>
-          <div>
-            <h2 className="text-xl font-semibold mb-2 text-red-700">Sorted (Descending)</h2>
-            <div className="p-3 border rounded h-60 overflow-y-auto bg-gray-50">
-              {reversed.join(", ")}
-            </div>
-          </div>
+        <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle className="text-green-700">Sorted (Ascending)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-60">
+                <div className="text-sm font-mono whitespace-pre-wrap">
+                  {sorted.join(", ")}
+                </div>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle className="text-red-700">Sorted (Descending)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-60">
+                <div className="text-sm font-mono whitespace-pre-wrap">
+                  {reversed.join(", ")}
+                </div>
+              </ScrollArea>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>
